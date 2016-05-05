@@ -1,0 +1,29 @@
+{
+  "name": "learning-js",
+  "version": "1.0.0",
+  "description": "This is a project contain some case of javascript when learn it\"",
+  "main": "index.js",
+  "dependencies": {
+    "warehouse": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarschHuynh/Learning-JS.git"
+  },
+  "keywords": [
+    "learning",
+    "js",
+    "javascript",
+    "newbie"
+  ],
+  "author": "Marsch Huynh <marsch.huynh@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarschHuynh/Learning-JS/issues"
+  },
+  "homepage": "https://github.com/MarschHuynh/Learning-JS#readme"
+}
