@@ -1,11 +1,19 @@
 /*
   WareHouse is a Simple JSON-based database
 */
-
+var pathFn = require('path');
 var Database = require('warehouse');
-var db = new Database();
- 
-var Post = db.model('posts', {
+var Promise = require("bluebird");
+var EventEmitter = require('events');
+
+var MyEvent = new EventEmitter();
+
+var db = new Database({
+    version: 1.0,
+    path: pathFn.join(process.cwd(), 'db.json')
+});
+
+var Post = db.model('post', {
   title: String,
   content: String,
   created: {type: Date, default: Date.now}
@@ -16,14 +24,40 @@ var Comment = db.model('comment',{
   author: String,
 }); 
 
-Post.insert({
-  title: 'First Post',
-  content: 'This is a content of first post'
+Promise.all([
+	Post.insertOne({
+  		title: 'First Post',
+  		content: 'This is a content of first post'
+	}),
+	Post.insertOne({
+  		title: 'Second Post',
+  		content: 'This is a content of second post'
+	}),
+	Comment.insert({
+	  	author: "Marsch",
+	  	content: "This is a comment of Marsch",
+	}),
+	Comment.insert({
+	  	author: "Thien",
+	  	content: "This is a comment of Thien",
+	})]
+).then(function(){
+	console.log("Finish");
+	db.save().then(function(){
+		console.log("DATABASE SAVE FINISH");
+		MyEvent.emit("dbSaved");
+	});
 })
 
-Comment.insert({
-  author: "Marsch",
-  content: "This is a comment of Marsch",
-}).then(function(){
-  console.log(db);
-})
+MyEvent.on('dbSaved',function(){
+	db.load().then(function(){
+  		var posts = db.model('post').find({});
+  		var comments = db.model('comment').find({});
+  		console.log(posts);
+  		console.log(comments);
+	})
+});
+
+
+
+
