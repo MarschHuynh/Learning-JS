@@ -4,6 +4,7 @@
   "description": "This is a project contain some case of javascript when learn it\"",
   "main": "index.js",
   "dependencies": {
+    "JSONStream": "^1.1.3",
     "bluebird": "^3.4.1",
     "warehouse": "^2.2.0"
   },
